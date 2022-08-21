@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject HttpClient Http 
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +8,19 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+<p>@something</p>
+@code {
+
+    private string something = "dssdfdf";
+protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            something = await Http.GetStringAsync("/api/Todo") ?? "";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}
